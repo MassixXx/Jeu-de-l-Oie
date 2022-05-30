@@ -1,8 +1,14 @@
-package Kernel.Cases;
+package Kernel.Cases.C_Question;
 
-import Kernel.C_Question;
+import Kernel.Cases.C_Question.C_Question;
+import Kernel.Plateau;
+import Kernel.Couleur;
 
 public class CaseDefinition extends C_Question {
+
+    CaseDefinition(int num, Plateau plateau){
+        super(num, Couleur.Blue,plateau);
+    }
     private String question;
     private String reponse;
 
