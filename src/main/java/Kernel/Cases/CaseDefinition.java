@@ -1,4 +1,4 @@
-package Kernel.Cases.C_Question;
+package Kernel.Cases;
 
 import Kernel.Cases.C_Question.C_Question;
 import Kernel.Plateau;
