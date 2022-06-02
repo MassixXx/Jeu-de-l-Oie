@@ -5,7 +5,7 @@ import Kernel.Couleur;
 
 public class CaseParcours extends Case {
 
-    CaseParcours(int num, Plateau plateau) {
+    public CaseParcours(int num, Plateau plateau) {
         super(num, Couleur.White,"",plateau);
     }
     @Override

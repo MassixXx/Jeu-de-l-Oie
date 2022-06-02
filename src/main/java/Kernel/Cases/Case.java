@@ -7,18 +7,34 @@ public abstract class Case {
     protected Case(int num,Couleur couleur,String iconPath,Plateau plateau){
         this.num = num;
         this.couleur = couleur;
-        this.plateau = plateau;
         this.iconPath = iconPath;
     };
 
-    private Couleur couleur;
+    private final Couleur couleur;
     private static Plateau plateau;
-    private int num;
-    private String iconPath;
+    private final int num;
+    private final String iconPath;
+
+    public static Plateau getPlateau() {
+        return plateau;
+    }
+
+    public static void setPlateau(Plateau plateau) {
+        Case.plateau = plateau;
+    }
+
 
     public abstract void action();
 
     public int getNum() {
         return num;
+    }
+
+    public String getIconPath() {
+        return iconPath;
+    }
+
+    public Couleur getCouleur() {
+        return couleur;
     }
 }

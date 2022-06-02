@@ -5,7 +5,7 @@ import Kernel.Plateau;
 
 public class CaseMalus extends Case {
 
-    CaseMalus(int num, Plateau plateau) {
+    public CaseMalus(int num, Plateau plateau) {
         super(num, Couleur.Red,"path/icons/minus2.svg",plateau);
     }
     @Override

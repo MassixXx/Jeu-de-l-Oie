@@ -6,7 +6,7 @@ import Kernel.Couleur;
 
 public class CaseDefinition extends C_Question {
 
-    CaseDefinition(int num, Plateau plateau){
+    public CaseDefinition(int num, Plateau plateau){
         super(num, Couleur.Blue,plateau);
     }
     private String question;

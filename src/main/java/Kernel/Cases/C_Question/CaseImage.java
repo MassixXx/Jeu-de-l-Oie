@@ -7,7 +7,7 @@ import Kernel.Couleur;
 
 public class CaseImage extends C_Question {
 
-    CaseImage(int num, Plateau plateau){
+    public CaseImage(int num, Plateau plateau){
         super(num, Couleur.Pink,plateau)
         ;
     }
