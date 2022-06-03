@@ -8,7 +8,7 @@ directions = ['right','down','left','up']
 direction = 'right'
 with open("pos.txt","w") as fpos:
     for i in range(100):
-        fpos.write(f'({row},{col})\n')
+        fpos.write(f'{row} {col}\n')
         rlb = n - 2*(iterations // 3)
         rlh = 2*(iterations // 3)
         cld = n - 2*(iterations // 3)

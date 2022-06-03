@@ -11,7 +11,8 @@ import java.util.Collections;
 
 public class Plateau implements Serializable {
     private Case[] cases;
-    private int currentPosition;
+    private int currentPosition,targetPos;
+    private boolean enabled;
     private transient Partie partie; //Il y aura une redondance dans le fichier
     //Ici, partie est un attribut secondaire
 
@@ -22,22 +23,26 @@ public class Plateau implements Serializable {
     }
 
     public Plateau() {
+        currentPosition = targetPos = 0;
+        enabled = false;
         this.cases = new Case[100];
         cases[0] = new CaseDepart(0,this);
-        ArrayList<Case> casesInternes = new ArrayList<Case>(98);
+        ArrayList<Case> casesInternes = new ArrayList<Case>(100);
         for (int i=0;i<98;i++){
-            if (i<5) casesInternes.set(i, new CaseBonus(i,this));
-            else if (i < 10) casesInternes.set(i, new CaseMalus(i,this));
-            else if (i < 15) casesInternes.set(i, new CaseSaut(i,this));
-            else if (i<20) casesInternes.set(i, new CaseDefinition(i,this));
-            else if (i<25) casesInternes.set(i, new CaseImage(i,this));
-            else casesInternes.set(i,new CaseParcours(i,this));
+            if (i<25) {
+                if (i % 5 == 0) casesInternes.add(new CaseBonus(i, this));
+                else if (i % 5 == 1) casesInternes.add(new CaseMalus(i, this));
+                else if (i % 5 == 2) casesInternes.add(new CaseSaut(i, this));
+                else if (i % 5 == 3) casesInternes.add(new CaseDefinition(i, this));
+                else casesInternes.add(new CaseImage(i, this));
+            }else casesInternes.add(new CaseParcours(i,this));
         }
         Collections.shuffle(casesInternes);
-        Collections.shuffle(Arrays.asList(cases));
         for (int i = 0; i < 98; i++){
             cases[i + 1] = casesInternes.get(i);
+            cases[i+1].setNum(i+1);
         }
+
         cases[99] = new CaseFin(99,this);
     }
 
@@ -50,12 +55,29 @@ public class Plateau implements Serializable {
     }
 
     public void avancer(int nombreCases) {
+        targetPos += nombreCases;
+        if (targetPos > 99){
+            targetPos -= targetPos%99;
+        }
     }
 
     public void reculer(int nombreCases) {
+        targetPos -= nombreCases;
+        if (targetPos < 0) targetPos = 0;
     }
 
-    public void sauter(int nombreCases) {
+    public void sauter(int dest) {
+        targetPos = dest;
     }
+
+    public void goToTarget(){
+        currentPosition = targetPos;
+    }
+    
+    public void setCurrentPosition(int i){
+        currentPosition = i;
+    }
+    public void setTargetPos(int i){currentPosition = i;}
+    public void setEnabled(boolean val){enabled = val;}
 }
 

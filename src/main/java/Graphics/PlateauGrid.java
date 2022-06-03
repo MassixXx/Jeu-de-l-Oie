@@ -8,7 +8,8 @@ import java.util.Scanner;
 
 public class PlateauGrid extends GridPane {
     public PlateauGrid(Plateau plateau)  {
-        File fichPos = new File("pos.txt");
+
+        File fichPos = new File(PlateauGrid.class.getResource("pos.txt").getFile());
 
         try {
             Scanner reader = new Scanner(fichPos);
@@ -19,6 +20,7 @@ public class PlateauGrid extends GridPane {
                 int col = reader.nextInt();
                 this.add(cases[i],row,col);
             }
+            cases[0].setCurrent(true);
         }
         catch (FileNotFoundException e){
             System.out.println("Fichier pos.txt introuvable");

@@ -14,7 +14,7 @@ public abstract class Case {
 
     private final Couleur couleur;
     private static Plateau plateau;
-    private final int num;
+    private int num;
     private final String iconPath;
 
     public static Plateau getPlateau() {
@@ -39,4 +39,5 @@ public abstract class Case {
     public Couleur getCouleur() {
         return couleur;
     }
+    public void setNum(int n){this.num = n;}
 }

@@ -18,8 +18,8 @@ public class HelloApplication extends Application {
 
         Plateau plateau = new Plateau();
 
-        PlateauGrid plateau = new PlateauGrid();
-        Scene scene = new Scene(fxmlLoader.load(), 500, 400);
+        PlateauGrid plateauGrid = new PlateauGrid(plateau);
+        Scene scene = new Scene(plateauGrid, 500, 400);
         stage.setTitle("Hello!");
         stage.setScene(scene);
         stage.show();
