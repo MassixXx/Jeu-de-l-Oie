@@ -6,7 +6,7 @@ import Kernel.Couleur;
 public class CaseSaut extends Case {
 
     public CaseSaut(int num, Plateau plateau){
-        super(num, Couleur.Orange,"path/icons/jump.svg",plateau);
+        super(num, Couleur.Orange,"jump.png",plateau);
     }
     @Override
     public void action() {

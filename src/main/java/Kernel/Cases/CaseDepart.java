@@ -5,7 +5,7 @@ import Kernel.Plateau;
 
 public class CaseDepart extends Case {
     public CaseDepart(int num, Plateau plateau){
-        super(num, Couleur.Yellow,"path/icons/start.svg",plateau);
+        super(num, Couleur.Yellow,"start.png",plateau);
     }
 
     @Override

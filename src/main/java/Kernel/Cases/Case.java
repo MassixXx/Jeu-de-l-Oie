@@ -3,6 +3,8 @@ package Kernel.Cases;
 import Kernel.Plateau;
 import Kernel.Couleur;
 
+import java.net.URL;
+
 public abstract class Case {
     protected Case(int num,Couleur couleur,String iconPath,Plateau plateau){
         this.num = num;
@@ -31,7 +33,7 @@ public abstract class Case {
     }
 
     public String getIconPath() {
-        return iconPath;
+        return iconPath.toString();
     }
 
     public Couleur getCouleur() {

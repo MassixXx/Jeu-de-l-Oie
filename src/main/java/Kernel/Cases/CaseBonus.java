@@ -5,7 +5,7 @@ import Kernel.Plateau;
 
 public class CaseBonus extends Case {
     public CaseBonus(int num, Plateau plateau){
-        super(num,Couleur.Green,"path/icons/plus2.svg",plateau);
+        super(num,Couleur.Green,"plus2.png",plateau);
     }
     @Override
     public void action() {
