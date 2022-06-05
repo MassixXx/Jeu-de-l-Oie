@@ -9,6 +9,7 @@ public class CaseBonus extends Case {
     }
     @Override
     public void action() {
-
+        plateau.avancer(2);
+        plateau.getPartie().addScore(50);
     }
 }

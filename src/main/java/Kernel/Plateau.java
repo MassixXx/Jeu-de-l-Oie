@@ -12,7 +12,6 @@ import java.util.Collections;
 public class Plateau implements Serializable {
     private Case[] cases;
     private int currentPosition,targetPos;
-    private boolean enabled;
     private transient Partie partie; //Il y aura une redondance dans le fichier
     //Ici, partie est un attribut secondaire
 
@@ -23,8 +22,7 @@ public class Plateau implements Serializable {
     }
 
     public Plateau() {
-        currentPosition = targetPos = 0;
-        enabled = false;
+        currentPosition = 0;
         this.cases = new Case[100];
         cases[0] = new CaseDepart(0,this);
         ArrayList<Case> casesInternes = new ArrayList<Case>(100);
@@ -44,6 +42,7 @@ public class Plateau implements Serializable {
         }
 
         cases[99] = new CaseFin(99,this);
+        targetPos = getNextJump(0);
     }
 
     public Case getCaseAt(int i) throws IndexOutOfBoundsException{
@@ -65,19 +64,28 @@ public class Plateau implements Serializable {
         targetPos -= nombreCases;
         if (targetPos < 0) targetPos = 0;
     }
+    public Partie getPartie(){return partie;}
 
-    public void sauter(int dest) {
-        targetPos = dest;
+    public void sauter(int n) {
+        targetPos = getNextJump(n + 1);
     }
 
     public void goToTarget(){
         currentPosition = targetPos;
     }
-    
+
     public void setCurrentPosition(int i){
         currentPosition = i;
     }
     public void setTargetPos(int i){currentPosition = i;}
-    public void setEnabled(boolean val){enabled = val;}
+    private int getNextJump(int curr){
+        for (int i = curr;i<99;i++){
+            if (cases[i] instanceof CaseSaut) return i;
+        }
+        return getNextJump(0);
+    }
+
+    public int getTargetPos(){return targetPos;}
+    public int getCurrentPosition(){return currentPosition;}
 }
 

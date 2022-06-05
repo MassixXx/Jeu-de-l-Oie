@@ -1,5 +1,6 @@
 package Kernel.Cases;
 
+import Kernel.NotTheRightCaseException;
 import Kernel.Plateau;
 import Kernel.Couleur;
 
@@ -9,7 +10,8 @@ public class CaseFin extends Case {
         super(num, Couleur.Black,"crown.png",plateau);
     }
     @Override
-    public void action() {
-
+    public void action() throws NotTheRightCaseException {
+        super.action();
+        plateau.getPartie().end();
     }
 }

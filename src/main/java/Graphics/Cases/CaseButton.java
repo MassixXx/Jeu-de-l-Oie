@@ -1,24 +1,34 @@
 package Graphics.Cases;
 
+import Graphics.Delayer;
+import Graphics.PlateauGrid;
+import Graphics.Tip;
 import Kernel.Cases.Case;
 import Kernel.Cases.CaseParcours;
 import Kernel.Couleur;
+import Kernel.NotTheRightCaseException;
 import Kernel.Pawn;
+import javafx.concurrent.Task;
+import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Map;
 
 public class CaseButton extends StackPane{
-    public CaseButton(Case casee) throws FileNotFoundException {
+    public CaseButton(Case casee,PlateauGrid pg) throws FileNotFoundException {
         super();
+        this.plateauG = pg;
         current = false;
+        tip = null;
         double size = 30.0f;
         this.casee = casee;
         Rectangle box = new Rectangle();
@@ -29,6 +39,25 @@ public class CaseButton extends StackPane{
         ImageView img = new ImageView(new Image(new FileInputStream(Case.class.getResource(casee.getIconPath()).getFile())));
         img.setFitHeight(size);
         img.setFitWidth(size);
+
+        EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if (plateauG.getEnabled()){
+                    try {
+//                        plateauG.setPawn();
+                        casee.action();
+//                        plateauG.setPawn();
+                        plateauG.movePawn();
+
+                    } catch (NotTheRightCaseException ex) {
+                        plateauG.showTip();
+                    }
+                }
+            }
+        };
+
+        addEventFilter(MouseEvent.MOUSE_CLICKED,eventHandler);
 
         super.getChildren().addAll(box,img);
 
@@ -52,16 +81,40 @@ public class CaseButton extends StackPane{
         return colorMap.get(color);
     }
 
-    public void setCurrent(boolean val) throws FileNotFoundException {
-        current = val;
-        if (current){
-            getChildren().add(new Pawn());
+    public void setCurrent(boolean val) {
+        try {
+            current = val;
+            if (current) {
+                pawn = new Pawn();
+                getChildren().add(pawn);
+            } else {
+                getChildren().remove(pawn);
+                pawn = null;
+            }
         }
-        else {
-            getChildren().remove(2);
+        catch (FileNotFoundException e){
         }
     }
 
+
+
+    public void showTip(){
+        try{
+            tip = new Tip();
+            getChildren().add(tip);
+            plateauG.setEnabled(false);
+            Delayer.delay(1000, () -> {
+                getChildren().remove(tip);
+                tip = null;
+                plateauG.setEnabled(true);
+            });
+        }catch (FileNotFoundException e){}
+    }
+
+
     private Case casee;
     private boolean current;
+    private Pawn pawn;
+    private Tip tip;
+    private PlateauGrid plateauG;
 }

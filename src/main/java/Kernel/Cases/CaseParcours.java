@@ -1,5 +1,6 @@
 package Kernel.Cases;
 
+import Kernel.NotTheRightCaseException;
 import Kernel.Plateau;
 import Kernel.Couleur;
 
@@ -10,7 +11,8 @@ public class CaseParcours extends Case {
 
     }
     @Override
-    public void action() {
-
+    public void action() throws NotTheRightCaseException {
+        super.action();
+    //Case normale : aucune action à faire
     }
 }

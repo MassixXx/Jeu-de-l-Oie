@@ -1,5 +1,6 @@
 package Kernel.Cases;
 
+import Kernel.NotTheRightCaseException;
 import Kernel.Plateau;
 import Kernel.Couleur;
 
@@ -10,23 +11,18 @@ public abstract class Case {
         this.num = num;
         this.couleur = couleur;
         this.iconPath = iconPath;
+        this.plateau = plateau;
     };
 
     private final Couleur couleur;
-    private static Plateau plateau;
+    protected  Plateau plateau;
     private int num;
     private final String iconPath;
 
-    public static Plateau getPlateau() {
-        return plateau;
-    }
 
-    public static void setPlateau(Plateau plateau) {
-        Case.plateau = plateau;
-    }
-
-
-    public abstract void action();
+    public  void action() throws NotTheRightCaseException{
+        if (num != plateau.getTargetPos()) throw new NotTheRightCaseException("Case incorrecte");
+    };
 
     public int getNum() {
         return num;

@@ -13,6 +13,7 @@ public class Partie implements Serializable {
     //+Tableau de questions
     public Partie(Plateau plateau, User user) {
         this.plateau = plateau;
+        score = 1000;
 
     }
 
@@ -24,6 +25,18 @@ public class Partie implements Serializable {
     public int getSommeDes() {
 
         return (de1.getValue() + de2.getValue());
+    }
+
+    public void addScore(int s){
+        score += s;
+    }
+
+    public void subScore(int s){
+        score -= s;
+    }
+
+    public void subScore(){
+        score -= 10;
     }
 
     public void end() {
