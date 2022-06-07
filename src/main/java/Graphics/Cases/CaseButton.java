@@ -47,8 +47,8 @@ public class CaseButton extends StackPane{
                     try {
 //                        plateauG.setPawn();
                         casee.action();
-//                        plateauG.setPawn();
-                        plateauG.movePawn();
+                        plateauG.setPawn();
+//                        plateauG.movePawn();
 
                     } catch (NotTheRightCaseException ex) {
                         plateauG.showTip();

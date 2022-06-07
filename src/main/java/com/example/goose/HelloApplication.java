@@ -1,6 +1,8 @@
 package com.example.goose;
 
+import Graphics.PartieG;
 import Graphics.PlateauGrid;
+import Kernel.Partie;
 import Kernel.Plateau;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -16,10 +18,10 @@ public class HelloApplication extends Application {
     public void start(Stage stage) throws IOException {
 //        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
 
-        Plateau plateau = new Plateau();
+        Partie partie = new Partie(new Plateau(),null);
 
-        PlateauGrid plateauGrid = new PlateauGrid(plateau);
-        Scene scene = new Scene(plateauGrid, 500, 400);
+        PartieG prt = new PartieG(partie);
+        Scene scene = new Scene(prt, 500, 400);
         stage.setTitle("Hello!");
         stage.setScene(scene);
         stage.show();

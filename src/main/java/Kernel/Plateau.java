@@ -60,6 +60,8 @@ public class Plateau implements Serializable {
         }
     }
 
+
+
     public void reculer(int nombreCases) {
         targetPos -= nombreCases;
         if (targetPos < 0) targetPos = 0;
@@ -87,5 +89,7 @@ public class Plateau implements Serializable {
 
     public int getTargetPos(){return targetPos;}
     public int getCurrentPosition(){return currentPosition;}
+
+
 }
 

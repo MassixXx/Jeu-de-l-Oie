@@ -2,7 +2,12 @@ package Graphics;
 
 import Graphics.Cases.CaseButton;
 import Kernel.Plateau;
+import javafx.geometry.HPos;
+import javafx.geometry.Pos;
+import javafx.geometry.VPos;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
+
 import java.io.*;
 import java.util.Scanner;
 
@@ -19,7 +24,11 @@ public class PlateauGrid extends GridPane {
                 cases[i] = new CaseButton(plateau.getCaseAt(i),this);
                 int row = reader.nextInt();
                 int col = reader.nextInt();
-                this.add(cases[i],row,col);
+                this.add(cases[i],col,row);
+                setMaxSize(500.0f,500.0f);
+                cases[i].setAlignment(Pos.CENTER);
+
+                GridPane.setConstraints(cases[i],col,row,1,1, HPos.CENTER, VPos.CENTER, Priority.ALWAYS,Priority.ALWAYS);
             }
             cases[0].setCurrent(true);
         }
@@ -31,31 +40,12 @@ public class PlateauGrid extends GridPane {
         }
     }
 
-    public void movePawn(int origin,int dest){
-        for (int i = origin,lastPos =origin;;){
-            cases[lastPos].setCurrent(false);
-            cases[i].setCurrent(false);
-            lastPos = i;
-            if (i == dest) break;
-            if (origin < dest){
-                i++;
-            } else {
-                i--;
-            }
-            try {
-                Thread.sleep(500);
-            }catch (InterruptedException e){
-                e.printStackTrace();
-            }
-        }
-    }
 
-    public void movePawn(){
-        movePawn(plateau.getCurrentPosition(),plateau.getTargetPos());
-    }
 
     public void setPawn(){
-        cases[plateau.getCurrentPosition()].setCurrent(false);
+        for (int i=0;i<99;i++){
+            cases[i].setCurrent(false);
+        }
         cases[plateau.getTargetPos()].setCurrent(true);
         plateau.goToTarget();
     }
