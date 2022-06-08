@@ -16,6 +16,12 @@ public class Partie implements Serializable {
          de = new De(this);
     }
 
+    public Partie(User user) {
+        this.plateau = new Plateau(this);
+        score = 1000;
+        de = new De(this);
+    }
+
     public Plateau getPlateau(){return plateau;}
 
     public De getDice(){return de;}

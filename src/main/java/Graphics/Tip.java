@@ -13,8 +13,8 @@ public class Tip extends Group {
     public Tip() throws FileNotFoundException {
         super();
         ImageView img = new ImageView(new Image(new FileInputStream(Graphics.Tip.class.getResource("tip.gif").getFile())));
-        img.setFitWidth(30.0f);
-        img.setFitHeight(30.0f);
+        img.setFitWidth(35.0f);
+        img.setFitHeight(35.0f);
         getChildren().add(img);
     }
 }

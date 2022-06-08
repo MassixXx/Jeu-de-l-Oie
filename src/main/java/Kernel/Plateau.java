@@ -12,7 +12,7 @@ import java.util.Collections;
 public class Plateau implements Serializable {
     private Case[] cases;
     private int currentPosition,targetPos;
-    private transient Partie partie; //Il y aura une redondance dans le fichier
+    private Partie partie; //Il y aura une redondance dans le fichier
     //Ici, partie est un attribut secondaire
 
     public Plateau(Case[] cases, int currentPosition) {
@@ -21,8 +21,9 @@ public class Plateau implements Serializable {
 
     }
 
-    public Plateau() {
-        currentPosition = 0;
+    public Plateau(Partie prt) {
+        this.partie = prt;
+        currentPosition = targetPos = 0;
         this.cases = new Case[100];
         cases[0] = new CaseDepart(0,this);
         ArrayList<Case> casesInternes = new ArrayList<Case>(100);
@@ -42,7 +43,7 @@ public class Plateau implements Serializable {
         }
 
         cases[99] = new CaseFin(99,this);
-        targetPos = getNextJump(0);
+
     }
 
     public Case getCaseAt(int i) throws IndexOutOfBoundsException{

@@ -18,7 +18,7 @@ public class HelloApplication extends Application {
     public void start(Stage stage) throws IOException {
 //        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
 
-        Partie partie = new Partie(new Plateau(),null);
+        Partie partie = new Partie(null);
 
         PartieG prt = new PartieG(partie);
         Scene scene = new Scene(prt, 500, 400);
@@ -30,4 +30,6 @@ public class HelloApplication extends Application {
     public static void main(String[] args) {
         launch();
     }
+
+
 }

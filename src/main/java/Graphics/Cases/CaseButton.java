@@ -29,12 +29,14 @@ public class CaseButton extends StackPane{
         this.plateauG = pg;
         current = false;
         tip = null;
-        double size = 30.0f;
+        double size = 35.0f;
         this.casee = casee;
         Rectangle box = new Rectangle();
         box.setHeight(size);
         box.setWidth(size);
-        box.setStroke(Color.BLACK);
+        box.setArcHeight(15.0f);
+        box.setArcWidth(15.0f);
+//        box.setStroke(Color.BLACK);
         box.setFill(colorConverter(casee.getCouleur()));
         ImageView img = new ImageView(new Image(new FileInputStream(Case.class.getResource(casee.getIconPath()).getFile())));
         img.setFitHeight(size);
@@ -45,10 +47,12 @@ public class CaseButton extends StackPane{
             public void handle(MouseEvent mouseEvent) {
                 if (plateauG.getEnabled()){
                     try {
-//                        plateauG.setPawn();
                         casee.action();
                         plateauG.setPawn();
-//                        plateauG.movePawn();
+                        //On bloque le plateau
+                        plateauG.setEnabled(false);
+                        //On débloque le dé
+                        plateauG.getPartieG().setEnabledDice(true);
 
                     } catch (NotTheRightCaseException ex) {
                         plateauG.showTip();

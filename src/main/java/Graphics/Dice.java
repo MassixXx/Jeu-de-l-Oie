@@ -11,14 +11,16 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Dice extends StackPane {
-    public Dice(De dice){
+    public Dice(De dice,PartieG pg){
         de = dice;
+        partieG = pg;
+        enabled = true;
         Rectangle box = new Rectangle();
         double size = 100.0f;
         box.setHeight(size);
@@ -41,7 +43,13 @@ public class Dice extends StackPane {
         EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent e) {
-                rethrow();
+                if (enabled){
+                    rethrow();
+                    //On débloque le plateau
+                    partieG.setEnabledPlateau(true);
+                    //On bloque le dé
+                    setEnabled(false);
+                }
             }
         };
         addEventFilter(MouseEvent.MOUSE_CLICKED,eventHandler);
@@ -83,14 +91,21 @@ public class Dice extends StackPane {
         de.throwDice();
         int d1 = de.getValue1();
         int d2 = de.getValue2();
+//        ImageView imgs[] = {getDiceimg(1),getDiceimg(2),getDiceimg(3),getDiceimg(4),getDiceimg(5),getDiceimg(6)};
+        Random rnd = new Random();
 
         diceG.getChildren().clear();
 
-        diceG.add(getDiceimg(d1),0,0);
-        diceG.add(getDiceimg(d2),1,1);
+        diceG.add(getDiceimg(d1), 0, 0);
+        diceG.add(getDiceimg(d2), 1, 1);
+    }
 
+    public void setEnabled(boolean val){
+        enabled = val;
     }
 
     private GridPane diceG;
     private De de;
+    private PartieG partieG;
+    private boolean enabled;
 }

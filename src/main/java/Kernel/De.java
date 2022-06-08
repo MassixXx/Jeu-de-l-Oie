@@ -8,13 +8,17 @@ public class De {
     private Partie partie;
     public De(Partie partie){
         this.partie = partie;
-        throwDice();
+        Random random = new Random();
+        this.value1 = random.nextInt(6) + 1;
+        this.value2 = random.nextInt(6) + 1;
     }
 
     public void throwDice() {
         Random random = new Random();
         this.value1 = random.nextInt(6) + 1;
         this.value2 = random.nextInt(6) + 1;
+
+        partie.getPlateau().avancer(getSum());
     }
 
     public int getValue1() {

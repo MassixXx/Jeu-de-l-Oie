@@ -1,6 +1,7 @@
 package Graphics;
 
 import Graphics.Cases.CaseButton;
+import Kernel.Partie;
 import Kernel.Plateau;
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
@@ -12,9 +13,10 @@ import java.io.*;
 import java.util.Scanner;
 
 public class PlateauGrid extends GridPane {
-    public PlateauGrid(Plateau plateau)  {
+    public PlateauGrid(Plateau plateau, PartieG partieG)  {
         this.plateau = plateau;
-        enabled = true;
+        enabled = false;
+        partie = partieG;
         File fichPos = new File(PlateauGrid.class.getResource("pos.txt").getFile());
 
         try {
@@ -25,7 +27,7 @@ public class PlateauGrid extends GridPane {
                 int row = reader.nextInt();
                 int col = reader.nextInt();
                 this.add(cases[i],col,row);
-                setMaxSize(500.0f,500.0f);
+                setMaxSize(650.0f,650.0f);
                 cases[i].setAlignment(Pos.CENTER);
 
                 GridPane.setConstraints(cases[i],col,row,1,1, HPos.CENTER, VPos.CENTER, Priority.ALWAYS,Priority.ALWAYS);
@@ -55,8 +57,10 @@ public class PlateauGrid extends GridPane {
     public void showTip(){
         cases[plateau.getTargetPos()].showTip();
     }
+    public PartieG getPartieG() {return partie;}
 
     private CaseButton[] cases;
     private Plateau plateau;
     private boolean enabled;
+    private PartieG partie;
 }
