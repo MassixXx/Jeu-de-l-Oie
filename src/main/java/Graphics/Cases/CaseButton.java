@@ -38,14 +38,16 @@ public class CaseButton extends StackPane{
         box.setArcWidth(15.0f);
 //        box.setStroke(Color.BLACK);
         box.setFill(colorConverter(casee.getCouleur()));
-        ImageView img = new ImageView(new Image(new FileInputStream(Case.class.getResource(casee.getIconPath()).getFile())));
+        try {
+            ImageView img = new ImageView(new Image(new FileInputStream(Case.class.getResource(casee.getIconPath()).getFile())));
+
         img.setFitHeight(size);
         img.setFitWidth(size);
 
         EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                if (plateauG.getEnabled()){
+                if (plateauG.getEnabled()) {
                     try {
                         casee.action();
                         plateauG.setPawn();
@@ -61,12 +63,15 @@ public class CaseButton extends StackPane{
             }
         };
 
-        addEventFilter(MouseEvent.MOUSE_CLICKED,eventHandler);
+        addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler);
 
-        super.getChildren().addAll(box,img);
+        super.getChildren().addAll(box, img);
 
-        if (casee instanceof CaseParcours){
-            super.getChildren().add(new Text(String.valueOf(casee.getNum()+1)));
+        if (casee instanceof CaseParcours) {
+            super.getChildren().add(new Text(String.valueOf(casee.getNum() + 1)));
+        }
+    }catch (Exception ex){
+            System.out.println(casee.getIconPath() + " introuvable");
         }
     };
 

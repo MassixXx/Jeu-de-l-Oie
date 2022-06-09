@@ -24,6 +24,6 @@ public class CaseDefinition extends C_Question {
 
     @Override
     public void action() {
-
+        plateau.getPartie().notifyListener(1);
     }
 }

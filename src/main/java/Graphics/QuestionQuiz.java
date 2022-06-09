@@ -1,10 +1,13 @@
 package Graphics;
 
-import Kernel.Cases.Case;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -20,17 +23,52 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Random;
 
-public class QuestionImage extends StackPane {
+public class QuestionQuiz extends StackPane {
+
 
     private String question;
-    private String[] answers;
+    private CaseField cf;
+    private Scene scene;
+    private String answer;
     private PartieG pg;
 
-    public QuestionImage(PartieG pg,String quest,String[] ans){
+    public void setSc(){
+        scene = pg.getSc();
+        scene.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getCode().isLetterKey()) {
+                cf.addLetter(event.getText().charAt(0));
+                event.consume();
+            }
+        });
+
+        scene.addEventHandler(KeyEvent.KEY_PRESSED, ev -> {
+            if (ev.getCode() == KeyCode.ENTER) {
+                boolean val = cf.validate(answer);
+                ev.consume();
+                Delayer.delay(750,()->{
+                    pg.closeQuestion();
+                    if(val) {
+                        pg.getPartie().addScore(40);
+                        pg.getPartie().getPlateau().avancer(4);
+                    }
+                    else {
+                        pg.getPartie().subScore(20);
+                        pg.getPartie().getPlateau().reculer(4);
+                    }
+                    pg.getPlateauG().setPawn();
+
+                });
+            }});
+
+    }
+
+    public QuestionQuiz(PartieG pg,String quest,String ans){
         super();
+        cf = new CaseField(this,ans.length());
         this.pg = pg;
         question = quest;
-        answers = ans;
+        answer = ans;
+        setSc();
         double w = 500.0f,h = 300.0f;
         Rectangle box = new Rectangle();
         box.setHeight(h);
@@ -43,9 +81,9 @@ public class QuestionImage extends StackPane {
         anchr.setMaxWidth(w);
         ImageView etiqu = null;
         try{
-            etiqu = new ImageView(new Image(new FileInputStream(QuestionImage.class.getResource("redQ.png").getFile())));
+            etiqu = new ImageView(new Image(new FileInputStream(QuestionImage.class.getResource("blueQ.png").getFile())));
         }catch (FileNotFoundException ex){
-            System.out.println("Image redQ non trouvé");
+            System.out.println("Image bleueQ non trouvé");
             ex.printStackTrace();
         }
         double imgSize =70.0;
@@ -60,46 +98,19 @@ public class QuestionImage extends StackPane {
         vBox.setAlignment(Pos.CENTER);
 //        vBox.setSpacing(50.0);
 
+
+
         Text qText = new Text(question);
         qText.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
 
-        HBox ansPics = new HBox();
-        ImageButton imgs [] = {new ImageButton(this,ans[0],imgSize,true),new ImageButton(this,ans[1],imgSize,false),new ImageButton(this,ans[2],imgSize,false),new ImageButton(this,ans[3],imgSize,false)};
 
 
-        Random rnd = new Random();
-        for (int i=0;i<20;i++){
-            int i1 = rnd.nextInt(4);
-            int i2 = rnd.nextInt(4);
-            var temp =imgs[i1];
-            imgs[i1] =imgs[i2];
-            imgs[i2] = temp;
-        }
+        setFocusTraversable(true);
+//        this.requestFocus();
+//        this.setFocused(true);
 
-        for (int i = 0;i<4;i++){
-            ansPics.getChildren().add(imgs[i]);
-        }
-        ansPics.setSpacing(50.0);
-        ansPics.setAlignment(Pos.CENTER);
-
-        vBox.getChildren().addAll(qText,ansPics);
+        vBox.getChildren().addAll(qText,cf);
 
         this.getChildren().addAll(box,anchr,vBox);
     }
-
-    public void finish(boolean val){
-        pg.closeQuestion();
-        if(val) {
-            pg.getPartie().addScore(40);
-            pg.getInfos().addScore(40);
-            pg.getPartie().getPlateau().avancer(4);
-        }
-        else {
-            pg.getPartie().subScore(20);
-            pg.getInfos().addScore(-20);
-            pg.getPartie().getPlateau().reculer(4);
-        }
-        pg.getPlateauG().setPawn();
-    };
-
 }

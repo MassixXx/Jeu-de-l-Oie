@@ -50,6 +50,7 @@ public class PlateauGrid extends GridPane {
         }
         cases[plateau.getTargetPos()].setCurrent(true);
         plateau.goToTarget();
+        partie.getInfos().setCurrentPos(plateau.getTargetPos());
     }
 
     public void setEnabled(boolean val){enabled = val;}

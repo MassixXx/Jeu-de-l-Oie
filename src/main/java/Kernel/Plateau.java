@@ -57,7 +57,7 @@ public class Plateau implements Serializable {
     public void avancer(int nombreCases) {
         targetPos += nombreCases;
         if (targetPos > 99){
-            targetPos -= targetPos%99;
+            targetPos = 99 - targetPos%99;
         }
     }
 

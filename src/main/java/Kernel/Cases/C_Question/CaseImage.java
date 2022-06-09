@@ -16,7 +16,7 @@ public class CaseImage extends C_Question {
 
     @Override
     public void action() {
-
+        plateau.getPartie().notifyListener(2);
     }
 
     @Override
