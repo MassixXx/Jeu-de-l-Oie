@@ -46,7 +46,7 @@ public class QuestionQuiz extends StackPane {
                 boolean val = cf.validate(answer);
                 ev.consume();
                 Delayer.delay(750,()->{
-                    pg.closeQuestion();
+                    pg.closePop();
                     if(val) {
                         pg.getPartie().addScore(40);
                         pg.getPartie().getPlateau().avancer(4);
@@ -74,7 +74,7 @@ public class QuestionQuiz extends StackPane {
         box.setHeight(h);
         box.setWidth(w);
         box.setFill(Color.WHITE);
-        box.setEffect(new DropShadow(20,Color.BLACK));
+        box.setEffect(new DropShadow(60,Color.BLACK));
 
         AnchorPane anchr = new AnchorPane();
         anchr.setMaxHeight(h);

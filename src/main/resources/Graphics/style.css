@@ -1,0 +1,18 @@
+
+/*@font-face {
+    font-family: Convergence;
+    src: url('/home/lenovo/IdeaProjects/demo6/src/main/resources/com/example/demo6/Convergence/Convergence-Regular.ttf');
+}*/
+
+.bodybg{
+ -fx-background-image: url('background_Goose.jpeg');
+ -fx-background-size: 100% 100%;
+}
+.button{
+    -fx-background-radius : 50px;
+}
+/*.texte{
+    -fx-font : Convergence;
+}
+fx:controller="Menu"
+*/

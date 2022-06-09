@@ -24,7 +24,7 @@ public class PartieG extends StackPane implements Notify {
     private Scene scene;
     private PlateauGrid plateauG;
     private Dice de;
-    private StackPane question;
+    private StackPane pop;
     private Infos infos;
 
     public PartieG(Partie partie){
@@ -76,8 +76,8 @@ public class PartieG extends StackPane implements Notify {
         de.setEnabled(val);
     }
 
-    public void closeQuestion(){
-        getChildren().remove(question);
+    public void closePop(){
+        getChildren().remove(pop);
     }
 
     public void setSc(Scene s){scene = s;}
@@ -85,15 +85,21 @@ public class PartieG extends StackPane implements Notify {
 
     @Override
     public void onQuizQues() {
-        question = new QuestionQuiz(this,"Une question dvckjsndv?","dog");
-        getChildren().add((QuestionQuiz) question);
+        pop = new QuestionQuiz(this,"Comment appelle-t-on un chien en anglais?","dog");
+        getChildren().add((QuestionQuiz) pop);
     }
 
     @Override
     public void onImgQues() {
-        String ans [] = {"bg.png","five.png","four.png","three.png"};
-        question = new QuestionImage(this,"Une question dvckjsndv?",ans);
-        getChildren().add((QuestionImage) question);
+        String ans [] = {"cat.jpg","dog.jpg","fox.jpg","mouse.jpg"};
+        pop = new QuestionImage(this,"Where is the cat?",ans);
+        getChildren().add((QuestionImage) pop);
+    }
+
+    @Override
+    public void onFinal() {
+        pop = new FinalBox(getPartie().getScore());
+        getChildren().add(pop);
     }
 
     public Partie getPartie() {

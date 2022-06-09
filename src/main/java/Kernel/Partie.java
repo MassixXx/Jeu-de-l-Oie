@@ -7,13 +7,23 @@ import java.io.Serializable;
 public class Partie implements Serializable {
     private Plateau plateau; //Une partie contient un plateau
     private int score;
-    private User user;
-    private De de;
-    private  Jeu jeu;
+    private transient  User user;
+    private transient  De de;
+    private  transient Jeu jeu;
     private Notify listener;
     private Infos infos;
 
     //+Tableau de questions
+
+
+    public void setJeu(Jeu jeu) {
+        this.jeu = jeu;
+    }
+
+    public Jeu getJeu() {
+        return jeu;
+    }
+
     public Partie(Plateau plateau, User user) {
         this.plateau = plateau;
         score = 1000;
@@ -27,6 +37,10 @@ public class Partie implements Serializable {
     }
 
     public Plateau getPlateau(){return plateau;}
+
+    public void setDe(De de) {
+        this.de = de;
+    }
 
     public De getDice(){return de;}
 
@@ -47,6 +61,9 @@ public class Partie implements Serializable {
     public void subScore(int s){
         score -= s;
         infos.addScore(-s);
+        if (score < 0){
+            listener.onFinal();
+        }
     }
 
     public void subScore(){
@@ -78,6 +95,20 @@ public class Partie implements Serializable {
         else if (i==2){
             listener.onImgQues();
         }
+        else if (i == 3){
+            listener.onFinal();
+        }
     }
 
+    public int getScore() {
+        return score;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public User getUser() {
+        return user;
+    }
 }

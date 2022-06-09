@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" styleClass="bodybg" stylesheets="@style.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo6.StartController">
+   <children>
+      <Button alignment="CENTER" layoutX="535.0" layoutY="485.0" mnemonicParsing="false" onAction="#changeScreenButtonPushed" prefHeight="148.0" prefWidth="423.0" text="Start" AnchorPane.bottomAnchor="135.0" AnchorPane.leftAnchor="535.0" AnchorPane.rightAnchor="408.0" AnchorPane.topAnchor="485.0">
+         <font>
+            <Font name="System Bold" size="28.0" />
+         </font></Button>
+      <Label layoutX="592.0" layoutY="356.0" prefHeight="36.0" prefWidth="286.0" text="Apprends l'anglais" textFill="#ffae4f">
+         <font>
+            <Font name="System Bold Italic" size="27.0" />
+         </font></Label>
+      <Label layoutX="528.0" layoutY="175.0" text="Go" textFill="WHITE">
+         <font>
+            <Font name="System Bold Italic" size="120.0" />
+         </font></Label>
+      <Label layoutX="709.0" layoutY="175.0" text="Ose" textFill="#545454">
+         <font>
+            <Font name="System Bold Italic" size="120.0" />
+         </font></Label>
+   </children>
+</AnchorPane>

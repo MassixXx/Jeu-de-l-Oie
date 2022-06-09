@@ -1,11 +1,14 @@
 package Kernel;
 
 import java.io.*;
+import java.util.Scanner;
 
-public class SaveObjectFiles {
+
+public class SaveObjectFiles{
 
     //Sauvegarde de l'objet c dans le fichier se trouvant dans filePath
-    public static <T> void saveObject(T c, String filePath) {
+    public static <T>void  saveObject(T c, String filePath )
+    {
         ObjectOutputStream out;
         try {
             out = new ObjectOutputStream(
@@ -26,8 +29,10 @@ public class SaveObjectFiles {
     }
 
     //Retourne l'objet
-    public static <T> T getObject(String filePath) {
-        T util;
+    public static <T> T getObject(String filePath)
+
+    {
+        T util ;
         ObjectInputStream in;
         try {
             in = new ObjectInputStream(
@@ -38,15 +43,17 @@ public class SaveObjectFiles {
                     )
             );
 
-            util = (T) in.readObject();
-            util = (T) in.readObject();
+           util = (T) in.readObject();
+           // util = (T) in.readObject();
             in.close();
-            return util;
+            return  util;
 
 
-        } catch (ClassNotFoundException e) {
+        } catch (ClassNotFoundException e)
+        {
             e.printStackTrace();
-        } catch (FileNotFoundException e) {
+        }
+        catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
@@ -54,4 +61,40 @@ public class SaveObjectFiles {
 
         return null;
     }
+    public static void writeStringToTextFile(String filePath,String toBeWritten)
+    {
+        try(FileWriter fw = new FileWriter(filePath, true);
+            BufferedWriter bw = new BufferedWriter(fw);
+            PrintWriter out = new PrintWriter(bw))
+        {
+            out.println(toBeWritten);
+            out.close();
+            bw.close();
+            fw.close();
+        } catch (IOException e) {
+
+            e.printStackTrace();
+        }
+    }
+    public static boolean isInTextFile(String filePath, String toBeResearched)
+    {
+        File file = new File(filePath);
+        boolean trouv = false;
+        try {
+            Scanner scanner = new Scanner(file);
+
+            while (scanner.hasNextLine() && !trouv) {
+                String line = scanner.nextLine();
+                if(line.equals(toBeResearched)) {
+                    trouv = true;
+                }
+            }
+            scanner.close();
+        } catch(FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return  trouv;
+    }
+
 }

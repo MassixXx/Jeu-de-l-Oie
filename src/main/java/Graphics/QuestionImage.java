@@ -88,7 +88,7 @@ public class QuestionImage extends StackPane {
     }
 
     public void finish(boolean val){
-        pg.closeQuestion();
+        pg.closePop();
         if(val) {
             pg.getPartie().addScore(40);
             pg.getInfos().addScore(40);

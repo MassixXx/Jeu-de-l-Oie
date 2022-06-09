@@ -2,6 +2,7 @@ package Kernel.Cases.C_Question;
 
 import Kernel.Cases.Case;
 import Kernel.Couleur;
+import Kernel.NotTheRightCaseException;
 import Kernel.Plateau;
 
 import Kernel.QuestionGen;
@@ -15,4 +16,9 @@ public abstract class C_Question extends Case {
     abstract protected void generate_question();
 
     abstract protected void showPopWindow();
+
+    @Override
+    public void action() throws NotTheRightCaseException {
+        super.action();
+        }
 }

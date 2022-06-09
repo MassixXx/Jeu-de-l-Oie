@@ -1,6 +1,7 @@
 package Kernel.Cases.C_Question;
 
 import Kernel.Cases.C_Question.C_Question;
+import Kernel.NotTheRightCaseException;
 import Kernel.Plateau;
 import Kernel.Couleur;
 
@@ -23,7 +24,8 @@ public class CaseDefinition extends C_Question {
     }
 
     @Override
-    public void action() {
+    public void action() throws NotTheRightCaseException {
+        super.action();
         plateau.getPartie().notifyListener(1);
     }
 }

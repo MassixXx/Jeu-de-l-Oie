@@ -12,6 +12,7 @@ public class CaseFin extends Case {
     @Override
     public void action() throws NotTheRightCaseException {
         super.action();
+        plateau.getPartie().notifyListener(3);
         plateau.getPartie().end();
     }
 }

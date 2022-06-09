@@ -2,6 +2,7 @@ package Kernel.Cases.C_Question;
 
 
 import Kernel.Cases.C_Question.C_Question;
+import Kernel.NotTheRightCaseException;
 import Kernel.Plateau;
 import Kernel.Couleur;
 
@@ -15,7 +16,8 @@ public class CaseImage extends C_Question {
     private String[] imgPaths;
 
     @Override
-    public void action() {
+    public void action() throws NotTheRightCaseException {
+//        super.action();
         plateau.getPartie().notifyListener(2);
     }
 

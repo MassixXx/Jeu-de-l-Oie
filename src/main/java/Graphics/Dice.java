@@ -91,6 +91,7 @@ public class Dice extends StackPane {
         de.throwDice();
         int d1 = de.getValue1();
         int d2 = de.getValue2();
+        partieG.getPartie().subScore(50);
 //        ImageView imgs[] = {getDiceimg(1),getDiceimg(2),getDiceimg(3),getDiceimg(4),getDiceimg(5),getDiceimg(6)};
         Random rnd = new Random();
 

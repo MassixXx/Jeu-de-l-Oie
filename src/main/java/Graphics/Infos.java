@@ -21,7 +21,7 @@ public class Infos extends StackPane {
     public Infos(String name){
         this.name =name;
         score = 1000;
-        currentPos = 0;
+        currentPos = 1;
         build();
 
     }

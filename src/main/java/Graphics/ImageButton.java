@@ -22,7 +22,7 @@ public class ImageButton extends StackPane {
         questionImage = qi;
         try{
             ImageView img;
-            img = new ImageView(new Image(new FileInputStream(ImageButton.class.getResource( imgPath).getFile())));
+            img = new ImageView(new Image(new FileInputStream(ImageButton.class.getResource( "images/" + imgPath).getFile())));
 
             Rectangle box = new Rectangle();
             box.setHeight(size + 10);

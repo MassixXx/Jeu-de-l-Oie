@@ -1,6 +1,7 @@
 package Kernel.Cases;
 
 import Kernel.Couleur;
+import Kernel.NotTheRightCaseException;
 import Kernel.Plateau;
 
 public class CaseBonus extends Case {
@@ -8,7 +9,8 @@ public class CaseBonus extends Case {
         super(num,Couleur.Green,"plus2.png",plateau);
     }
     @Override
-    public void action() {
+    public void action() throws NotTheRightCaseException {
+        super.action();
         plateau.avancer(2);
         plateau.getPartie().addScore(50);
     }

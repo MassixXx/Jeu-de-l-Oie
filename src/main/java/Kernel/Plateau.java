@@ -12,7 +12,7 @@ import java.util.Collections;
 public class Plateau implements Serializable {
     private Case[] cases;
     private int currentPosition,targetPos;
-    private Partie partie; //Il y aura une redondance dans le fichier
+    private transient Partie partie; //Il y aura une redondance dans le fichier
     //Ici, partie est un attribut secondaire
 
     public Plateau(Case[] cases, int currentPosition) {
