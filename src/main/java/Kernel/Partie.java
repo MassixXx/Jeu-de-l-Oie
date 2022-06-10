@@ -31,6 +31,7 @@ public class Partie implements Serializable {
     }
 
     public Partie(User user) {
+        this.user = user;
         this.plateau = new Plateau(this);
         score = 1000;
         de = new De(this);
@@ -110,5 +111,11 @@ public class Partie implements Serializable {
 
     public User getUser() {
         return user;
+    }
+
+    public String getUserName(){return user.getNom();}
+
+    public void addPartie(){
+        getUser().getListeParties().add(this);
     }
 }

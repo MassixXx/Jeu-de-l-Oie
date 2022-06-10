@@ -1,14 +1,17 @@
 package Graphics;
 
 import Kernel.Cases.Case;
+import Kernel.NotTheRightCaseException;
 import Kernel.Notify;
 import Kernel.Partie;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -30,18 +33,32 @@ public class PartieG extends StackPane implements Notify {
     public PartieG(Partie partie){
         super();
         partie.setListener(this);
+        this.partie = partie;
         BorderPane bdp = new BorderPane();
         try {
          ImageView bg = new ImageView(new Image(new FileInputStream(PartieG.class.getResource("bg.jpg").getFile())));
             bg.setFitWidth(Screen.getPrimary().getVisualBounds().getWidth());
             bg.setFitHeight(Screen.getPrimary().getVisualBounds().getHeight());
 
+        ImageView close = new ImageView(new Image(new FileInputStream(PartieG.class.getResource("close.png").getFile())));;
+        close.setFitHeight(50.);
+        close.setFitWidth(50.);
+
+            EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                onClose();
+                }
+            };
+
+            close.addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler);
+
         this.partie = partie;
         this.plateauG = new PlateauGrid(partie.getPlateau(),this);
         this.de = new Dice(partie.getDice(),this);
         bdp.setCenter(plateauG);
 
-        infos = new Infos("user's name");
+        infos = new Infos(getPartie().getUserName());
             double margin = 20.0f;
 //            HBox.setMargin(infos,new Insets(0,0,0,margin));
 
@@ -54,16 +71,20 @@ public class PartieG extends StackPane implements Notify {
         AnchorPane anchr = new AnchorPane();
         AnchorPane.setLeftAnchor(infos,-20.);
         AnchorPane.setTopAnchor(infos,0.);
-        anchr.getChildren().add(infos);
+//        AnchorPane.setRightAnchor(close,50.);
+//        AnchorPane.setTopAnchor(close,50.);
+        anchr.getChildren().addAll(infos);
 
         partie.setInfos(infos);
+            bdp.setRight(close);
 
-        this.getChildren().addAll(bg,anchr,bdp);
-
+            this.getChildren().addAll(bg,anchr,bdp);
         }catch (FileNotFoundException ex){
             ex.printStackTrace();
             System.out.println("Fichier bg.jpg introuvable");
         }
+
+
 
         setFocusTraversable(true);
     }
@@ -99,6 +120,11 @@ public class PartieG extends StackPane implements Notify {
     @Override
     public void onFinal() {
         pop = new FinalBox(getPartie().getScore());
+        getChildren().add(pop);
+    }
+
+    public void onClose() {
+        pop = new QuitBox(this);
         getChildren().add(pop);
     }
 

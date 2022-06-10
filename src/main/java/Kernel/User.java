@@ -18,6 +18,7 @@ public class User implements Serializable, Comparable<User>{
     public User(String nom) {
         this.nom = nom;
         this.meilleurScore = 0;
+        listeParties = new ArrayList<>();
     }
     public  User(){}
     public User(String nom,ArrayList<Partie> liste) {
@@ -44,6 +45,7 @@ public class User implements Serializable, Comparable<User>{
     public ArrayList<Partie> getListeParties() {
         return listeParties;
     }
+
 
     public String getNom() {
         return nom;
